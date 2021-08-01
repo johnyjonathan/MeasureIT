@@ -1,0 +1,51 @@
+{% extends 'measureit/base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&display=swap" rel="stylesheet">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>measuerit</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/base_css.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="{% static 'assets/css/Login-Form-Dark.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/custom.css' %}">
+    
+<div class="loggedin_cont">
+{% if user.is_authenticated %}
+<h6 data-aos="fade" data-aos-duration="900" data-aos-delay="900" data-aos-once="true"> Hello  {{ user.username}} </h6>
+<p data-aos="fade" data-aos-duration="900" data-aos-delay="900" data-aos-once="true"> There is list of your laboratories </p>
+<table class="table" data-aos="fade" data-aos-duration="900" data-aos-delay="900" data-aos-once="true">
+    <tr>
+        <th> Name </th>
+        <th> IP Adress </th>
+        <th> Status </th>
+        <th></th>
+    </tr>
+{% for lab in labs %}
+<tr>
+    <td class = "lab_link"> {{lab.name}} </td>
+    <td> {{lab.ip_adress}} </td>
+    <td> Offline </td>
+    <td> <button> Connect </button> </td>
+</tr>
+{% endfor %}
+</table>
+<br><br>
+{% else %}
+<h4 data-aos="fade" data-aos-duration="900" data-aos-delay="900" data-aos-once="true"> We love all new guests but please you need to log in </h4>
+<div class="button_main_side_div"><a class="btn btn-primary text-center button_main_side" role="button" data-aos="fade" data-aos-duration="900" data-aos-delay="950" data-aos-once="true" href="{% url 'signin' %}">Get sterted</a></div>
+
+{% endif %}
+</div>
+{% endblock %}

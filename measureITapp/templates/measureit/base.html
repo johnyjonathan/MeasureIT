@@ -1,0 +1,91 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>measuerit</title>
+    <link rel="stylesheet" href="{% static 'assets/css/Login-Form-Dark.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/base_css.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+</head>
+<body>
+{% if messages %}
+      {% for message in messages %}
+          {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+      {% endfor %}
+  {% endif %}
+<div id="main">
+<div class="collapse-navbar">
+<div class="collapse" id="navbarToggleExternalContent">
+  <div class="p-4">
+    <ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="#">Laboratories</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'joinlab' %}">Join laboratory</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'createlab' %}">Create laboratory</a>
+  </li>
+</ul>
+  </div>
+</div>
+</div>
+<nav class="navbar navbar-dark ">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"> </span>
+    </button>
+    <ul class="nav">
+    {% if user.is_authenticated %}
+  <li class="nav-item">
+    <button class=" loggedas btn btn-secondary aos-init aos-animate buttonlogout me-3">Logged in as {{ user.username }}</buton>
+  </li>
+  <li class="nav-item ">
+   <form method="POST" action="{% url 'logoutuser' %}" class="d-flex">
+    {% csrf_token %}
+
+    <button type="submit" class="btn btn-secondary aos-init aos-animate buttonlogout button-hov"> Logout </button>
+    </form>
+  </li>
+    {% else %}
+    <a class="btn btn-secondary aos-init aos-animate buttonlogout button-hov me-3" role="button" href="{% url 'signin'%}"> Sign in </a>
+    <a class="btn btn-secondary aos-init aos-animate buttonlogout button-hov" role="button" href="{% url 'signup'%}"> Sign up </a>
+  {% endif %}
+
+</ul>
+  </div>
+  
+</nav>
+{% block content %}
+
+{% endblock %}
+
+
+<footer>
+            <div>
+                <p>Michał Taszycki, MeasureIT&nbsp;<strong>© 2021</strong><br></p>
+            </div>
+        </footer>
+
+</div>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js ' %}" ></script>
+    <script src="{% static 'assets/js/bs-init.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+</body>
+
+</html>

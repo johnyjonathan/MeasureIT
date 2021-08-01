@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>measuerit</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/base_css.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="{% static 'assets/css/Login-Form-Dark.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+</head>
+
+<body>
+    <div id="main">
+        <section class="login-dark">
+            <form method="post" style="background: rgb(20,33,61);">
+            {% csrf_token %}
+                <div class="illustration" style="font-size: 10;">
+                    <h4 style="font-size: 25px;">MeasureIT</h4>
+                </div>
+                <div class="mb-3">
+                <input class="form-control" type="text" name="username" placeholder="Login"></div>
+                <div class="mb-3">
+                <input class="form-control" type="password" name="password1" placeholder="Password"></div>
+                <div class="mb-3">
+                <input class="form-control" type="password" name="password2" placeholder="Repeat passowrd"></div>
+                <div class="mb-3">
+                <input class="form-control" type="email" name="email" placeholder="E-mail"></div>
+                <div class="mb-3">
+                <button class="btn btn-primary d-block w-100" type="submit">Sign up</button></div>
+                <a class="forgot" href="{% url 'signin' %}">Already have account? Sign in</a><span></span>
+            </form>
+        </section>
+        <footer>
+            <div>
+                <p>Michał Taszycki, MeasureIT&nbsp;<strong>© 2021</strong><br></p>
+            </div>
+        </footer>
+    </div>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js ' %}" ></script>
+    <script src="{% static 'assets/js/bs-init.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+</body>
+
+</html>

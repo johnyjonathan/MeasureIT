@@ -1,0 +1,47 @@
+footer {
+  font-family: 'IBM Plex Mono', monospace;
+  color: #e9d8a6;
+  clear: both;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin-top: 5%;
+}
+
+body {
+  height: 100%;
+  min-height: 100%;
+  background: #001219;
+}
+
+footer p {
+  font-size: 12px;
+  margin: 4% 0 1% 0;
+  text-align: center;
+}
+
+#reg_conteiner {
+  width: 60%;
+  height: 80%;
+  background: rgb(20,33,61);
+  display: block;
+  color: var(--bs-pink);
+  margin: auto 0;
+}
+
+main {
+  height: 600px;
+  display: block;
+  color: var(--bs-indigo);
+}
+
+span{
+  font-family: 'IBM Plex Mono', monospace;
+
+}
+
+.button-logout {
+  display: block;
+  width: 10%;
+  background: #0a9394;
+}

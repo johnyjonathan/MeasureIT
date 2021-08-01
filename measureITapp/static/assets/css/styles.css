@@ -1,0 +1,39 @@
+h1 {
+  font-family: 'IBM Plex Mono', monospace;
+  color: #e9d8a6;
+  text-align: center;
+  margin: 20% 0 0% 0;
+  font-size: 6em;
+}
+
+h3 {
+  color: #e9d8a6;
+  font-family: 'IBM Plex Mono', monospace;
+  text-align: center;
+  font-size: 25px;
+}
+
+a {
+  margin: 0 auto;
+  display: block;
+}
+
+
+
+.button_main_side {
+  margin: 3% auto;
+  display: block;
+  width: 12%;
+  background: #0a9394;
+}
+
+.button_main_side {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+#buttonlogout {
+  display: block;
+  width: 10%;
+  background: #0a9394!important;
+}
+

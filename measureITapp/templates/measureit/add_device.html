@@ -1,0 +1,64 @@
+{% extends 'measureit/base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&display=swap" rel="stylesheet">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>measuerit</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/base_css.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="{% static 'assets/css/Login-Form-Dark.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/custom.css' %}">
+
+
+<section class="create">
+<h3> Add new device to your laboratory </h3>
+<form method="POST">
+    {% csrf_token %}
+    <div class="form_cont">
+    <div class="form-grup">
+        <label for="name"> Name of device </label>
+        <input type="text" name="name" class="form-control">
+    </div> 
+    <div class="form-grup">
+        <label for="ip_adress"> IP adress </label>
+        <input type="text" minlength="7" name="ip_adress" class="form-control" maxlength="15" size="15" pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$">
+    </div>  
+    <div class="form-grup">
+        <label for="mac_adress"> MAC adress </label>
+        <input type="text" name="mac_adress" class="form-control">
+    </div> 
+    <div class="form-grup">
+        <label for="measure_type"> Measure type </label>
+        <input type="text" name="measure_type" class="form-control text-area">
+    </div> 
+        <div class="form-grup">
+        <label for="units"> Units </label>
+        <input type="text" name="units" class="form-control text-area">
+    </div> 
+        <div class="form-grup">
+        <label for="connection_type"> Connection type </label>
+        <select type="text" name="connection_type" class="form-control text-area">
+        <option value="usb"> USB </option>
+        <option value="rj-45"> RJ-45 </option>
+        <option value="com"> COM </option>
+        </select>
+    </div> 
+        <span> {{ error }} </span>
+    </div>
+
+<button type="submit">Add</button>
+</form>
+</section>
+{% endblock %}
