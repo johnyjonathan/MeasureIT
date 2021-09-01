@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.db.models import fields
 from django.forms import ModelForm
-from .models import AllLabs, UserLabs, Device
+from .models import AllLabs, UserLabs, Device, Measures
 
 
 class UserCreationForm(UserCreationForm):
@@ -36,3 +36,7 @@ class AddDeviceForm(ModelForm):
         model = Device
         fields = ['name','ip_adress','mac_adress','measure_type','units','connection_type']
         
+class MeasureForm(ModelForm):
+    class Meta:
+        model = Measures
+        fields =['name', 'device', 'command','lab']

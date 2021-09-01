@@ -1,0 +1,1 @@
+python3 -c "import telnet; telnet.telnetConnect('192.168.1.121','multimetr','multimetr','ls -l')" 

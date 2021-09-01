@@ -1,0 +1,30 @@
+
+Welcome to Ubuntu 20.04.2 LTS (GNU/Linux 5.11.0-25-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+266 aktualizacji można zainstalować natychmiast.
+116 z tych aktualizacji to aktualizacje bezpieczeństwa.
+Aby wyświetlić te dodatkowe aktualizacje, należy wprowadzić w terminalu: apt list --upgradable
+
+
+The list of available updates is more than a week old.
+To check for new updates run: sudo apt update
+Your Hardware Enablement Stack (HWE) is supported until April 2025.
+Last login: Wed Sep  1 17:16:16 CEST 2021 from 192.168.1.120 on pts/0
+multimetr@multimetr-VirtualBox:~$ razem 48
+drwxr-xr-x 2 multimetr multimetr 4096 sie 13 19:29 Dokumenty
+drwxrwxr-x 2 multimetr multimetr 4096 sie 29 22:49 gowno
+drwxr-xr-x 2 multimetr multimetr 4096 sie 13 19:29 Muzyka
+drwxr-xr-x 2 multimetr multimetr 4096 sie 13 19:29 Obrazy
+drwxrwxr-x 2 multimetr multimetr 4096 sie 29 22:24 oke
+drwxrwxr-x 2 multimetr multimetr 4096 sie 29 22:25 oke2
+drwxr-xr-x 2 multimetr multimetr 4096 sie 13 19:29 Pobrane
+drwxr-xr-x 2 multimetr multimetr 4096 sie 13 19:29 Publiczny
+drwxr-xr-x 2 multimetr multimetr 4096 sie 13 19:29 Pulpit
+drwxrwxr-x 2 multimetr multimetr 4096 sie 29 22:18 siema
+drwxr-xr-x 2 multimetr multimetr 4096 sie 13 19:29 Szablony
+drwxr-xr-x 2 multimetr multimetr 4096 sie 13 19:29 Wideo
+multimetr@multimetr-VirtualBox:~$ 

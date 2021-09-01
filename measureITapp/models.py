@@ -33,16 +33,26 @@ class Device(models.Model):
     def __str__(self):
         return self.name
     
-class ManualMeasure(models.Model):
-    title = models.CharField(max_length=200)
-    date = models.DateTimeField(auto_now_add=True)
-    device = models.ForeignKey(Device,on_delete=models.CASCADE)
-    lab = models.ForeignKey(AllLabs,on_delete=models.CASCADE)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    description = models.TextField(blank=True)
-    img = models.ImageField(upload_to="measureit/images", default='default.jpg', blank = True)
-    value = models.CharField(max_length=200)
-    prefix = models.CharField(max_length=1)
+# class ManualMeasure(models.Model):
+#     title = models.CharField(max_length=200)
+#     date = models.DateTimeField(auto_now_add=True)
+#     device = models.ForeignKey(Device,on_delete=models.CASCADE)
+#     lab = models.ForeignKey(AllLabs,on_delete=models.CASCADE)
+#     user = models.ForeignKey(User,on_delete=models.CASCADE)
+#     description = models.TextField(blank=True)
+#     img = models.ImageField(upload_to="measureit/images", default='default.jpg', blank = True)
+#     value = models.CharField(max_length=200)
+#     prefix = models.CharField(max_length=1)
     
+#     def __str__(self):
+#         return self.name
+
+class Measures(models.Model):
+    name = models.CharField(max_length=100)
+    device = models.ForeignKey(Device,on_delete=models.CASCADE)
+    command = models.CharField(max_length=100)
+    output = models.TextField(blank=False)
+    date = models.DateTimeField(auto_now_add=True)
+    lab = models.ForeignKey(AllLabs,on_delete=models.CASCADE)
     def __str__(self):
         return self.name

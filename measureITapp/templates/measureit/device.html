@@ -22,54 +22,16 @@
     <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/custom.css' %}">
 
-<div class="lab_cont row justify-content-start">
-<div class="lab_info col-5">
-{{error}}
-
-{% for info in lab_info %}
-<span> <b>Name: </b> {{info.name}} </span><br>
-<span> <b>Description: </b>{{info.description}} </span><br>
-<span> <b>Creation date: </b>{{info.created}} </span><br>
-<span> <b>Created by: </b>{{info.owner}} </span>
-
-
-<div class="measuer_buttons_cont">
-<br>
+<section class="create">
 <form method="POST">
-{% csrf_token %}
-<input type="submit" name="check_status"  value="Server status" class="btn btn-outline-success">
-<input type="submit" name="add_m_measuer"  value="Add manual measuer" class="btn btn-outline-success">
-
+    {% csrf_token %}
+    <div class="form_cont">
+    <div class="form-grup">
+        <label for="name"> Enter a command </label>
+        <input type="text" name="command" class="form-control">
+    </div> 
+    </div>
+    <input type="submit" name="send_command"  value="Send" class="btn btn-outline-success">
 </form>
-</div>
-{% endfor %}
-</div>
-<div class="col-6 devices">
-<form method="POST">
-{% csrf_token %}
-<h4> List of devices </h4>
-<ul>
-{% for device in lab_devices %}
-<li> {{device.name}} <input type="submit" name="{{device.name}}"  value="Use" class="btn btn-outline-success"> </li>
-{% endfor %}
-</ul>
-</form>
-
-{% if request.user.profile == info.owner %}
-
-<form method="POST">
-{% csrf_token %}
-
-<input type="submit" name="add_device"  value="Add device" class="btn btn-outline-success">
-
-</form>
-{% else %}
-<form method="POST">
-
-<button> devices </button>
-
-</form>
-{% endif %}
-</div>
-</div>
+</section>
 {% endblock %}
