@@ -39,4 +39,4 @@ class AddDeviceForm(ModelForm):
 class MeasureForm(ModelForm):
     class Meta:
         model = Measures
-        fields =['name', 'device', 'command','lab']
+        fields =['name', 'device', 'command','output','lab']

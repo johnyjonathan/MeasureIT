@@ -202,16 +202,18 @@ def measureResult(request, id_number, name, command):
             lab_data = get_object_or_404(AllLabs, id_number = id_number)
             device_data = get_object_or_404(Device, lab = lab_data.id)
             try:
-                form = MeasureForm(request.POST)
+                form = MeasureForm()
                 new_measure = form.save(commit=False)
+                
                 new_measure.name = "custom"
-                new_measure.device = device_data.id
+                new_measure.device = device_data
                 new_measure.command = command
-                new_measure.lab = lab_data.id
+                new_measure.output = cutted
+                new_measure.lab = lab_data
                 new_measure.save()
-                messages.info(request, 'Udalo sie')
+                messages.info(request, "Saved!")
             except:
-                messages.info(request, 'Error')
+                messages.info(request, "Can not save this measure")    
 
             return render(request,'measureit/measures/measure_result.html',{'data':cutted})
         else:
