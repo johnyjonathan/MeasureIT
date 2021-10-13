@@ -32,14 +32,18 @@
         <th> Status </th>
         <th></th>
     </tr>
-{% for lab in labs %}
+<form method="POST">
+{% csrf_token %}
+{% for lab, status in context %}
+
 <tr>
     <td class = "lab_link"> {{lab.name}} </td>
     <td> {{lab.ip_adress}} </td>
-    <td> Offline </td>
-    <td> <button> Connect </button> </td>
+    <td> {{status}} </td>
+    <td> <button type="submit" name="connector" value = "{{lab.id_number}}"> Connect </button> </td>
 </tr>
 {% endfor %}
+</form>
 </table>
 <br><br>
 {% else %}

@@ -21,55 +21,33 @@
     <link rel="stylesheet" href="{% static 'assets/css/Login-Form-Dark.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/custom.css' %}">
-
-<div class="lab_cont row justify-content-start">
-<div class="lab_info col-5">
+<section class="create">
+<div class="loggedin_cont">
 {{error}}
-
-{% for info in lab_info %}
-<span> <b>Name: </b> {{info.name}} </span><br>
-<span> <b>Description: </b>{{info.description}} </span><br>
-<span> <b>Creation date: </b>{{info.created}} </span><br>
-<span> <b>Created by: </b>{{info.owner}} </span>
-
-
-<div class="measuer_buttons_cont">
-<br>
+<table class="table" data-aos="fade" data-aos-duration="900" data-aos-delay="900" data-aos-once="true">
+    <tr>
+        <th>Device</th>
+        <th>Lab</th>
+        <th>Command</th>
+        <th>Date</th>
+    </tr>
 <form method="POST">
 {% csrf_token %}
-<input type="submit" name="check_status"  value="Server status" class="btn btn-outline-success">
-<input type="submit" name="add_m_measuer"  value="Add manual measuer" class="btn btn-outline-success">
-<input type="submit" name="measures_list"  value="Measures" class="btn btn-outline-success">
-</form>
-</div>
+{% for measure in data %}
+
+<tr class ="tr-hov">
+
+    <td> {{measure.device}} </td>
+    <td> {{measure.lab}} </td>
+    <td> {{measure.command}} </td>
+    <td>  {{measure.date}} </td>
+    <td> <button type="submit" name="details" value = "{{measure.id}}"> View </button> </td>
+
+</tr>
+
 {% endfor %}
-</div>
-<div class="col-6 devices">
-<form method="POST">
-{% csrf_token %}
-<h4> List of devices </h4>
-<ul>
-{% for device in lab_devices %}
-<li> {{device.name}} <input type="submit" name="{{device.name}}"  value="Use" class="btn btn-outline-success"> </li>
-{% endfor %}
-</ul>
 </form>
-
-{% if request.user.profile == info.owner %}
-
-<form method="POST">
-{% csrf_token %}
-
-<input type="submit" name="add_device"  value="Add device" class="btn btn-outline-success">
-
-</form>
-{% else %}
-<form method="POST">
-
-<button> devices </button>
-
-</form>
-{% endif %}
+</table>
 </div>
-</div>
+</section>
 {% endblock %}

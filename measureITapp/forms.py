@@ -34,7 +34,7 @@ class AddLabForm(ModelForm):
 class AddDeviceForm(ModelForm):
     class Meta:
         model = Device
-        fields = ['name','ip_adress','mac_adress','measure_type','units','connection_type']
+        fields = ['name','password','ip_adress','mac_adress','measure_type','units','connection_type']
         
 class MeasureForm(ModelForm):
     class Meta:

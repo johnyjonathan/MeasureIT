@@ -23,6 +23,7 @@
 
   .loggedin_cont p{
     margin-bottom: 3%;
+    text-align: center;
   }
 
   .loggedin_cont table {
@@ -176,7 +177,7 @@ color:white;
   border-bottom-right-radius: 5px;
 }
 
-p {
+.fakeScreen p {
   position: relative;
   left: 10%;
   text-align: left;
@@ -347,4 +348,9 @@ span {
 .control-buttons{
   width: auto;
   margin: 0 auto;
+}
+
+.tr-hov:hover {
+background-color: #e9d8a6;
+color:#000;
 }

@@ -34,6 +34,8 @@ urlpatterns = [
     path('lab/<str:id_number>/add_device', views.addDevice, name="adddevice"),
     path('lab/<str:id_number>/add_man_measure', views.addManualMeasure, name="add_m_measure"),
     path('lab/<str:id_number>/<str:name>', views.device, name="device"),
-    path('lab/<str:id_number>/<str:name>/measure_result/<str:command>', views.measureResult, name="measure_result")
+    path('lab/<str:id_number>/<str:name>/measure_result/<str:command>', views.measureResult, name="measure_result"),
+    path('lab/<str:id_number>/list/measures', views.measures, name="measures")
+
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

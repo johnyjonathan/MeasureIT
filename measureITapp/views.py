@@ -6,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
-from .models import AllLabs, Device, UserLabs
+from .models import AllLabs, Device, UserLabs, Measures
 from .functions import generate_id, addCreatedLab, pingServer, ServerConnector, FileManager, modyfiCommand
 from django.contrib import messages
 import paramiko
@@ -28,8 +28,24 @@ def signin(request):
             return redirect('loggedin')
 
 def loggedin(request):
-    labs = AllLabs.objects.filter(owner = request.user)
-    return render(request, 'measureit/loggedin.html', {'labs':labs})
+    if request.method == 'GET':
+        labs = AllLabs.objects.filter(owner = request.user)
+        _info = []
+        for x in range(len(labs)):
+            if pingServer(labs[x].ip_adress) == True:
+                _info.append("Online")
+            else:
+                _info.append("Offline")
+        zipped_list = zip(labs, _info)
+        return render(request, 'measureit/loggedin.html', {'context':zipped_list})
+    else:
+        labs = AllLabs.objects.filter(owner = request.user)
+        if request.POST.get('connector'):
+            _name = request.POST['connector']
+            _id = get_object_or_404(AllLabs, id_number = _name)
+            return redirect('labauth', id_number = _id.id_number)
+        else:
+            return render(request, 'measureit/loggedin.html', {'labs':labs})
 
 def signup(request):
     if request.method == 'GET':
@@ -92,7 +108,8 @@ def joinLab (request):
 
 def LabAuth(request, id_number):
     if request.method == "GET":
-        return render(request,'measureit/labauth.html',{'id':id_number})
+        lab = get_object_or_404(AllLabs,id_number = id_number)
+        return render(request,'measureit/labauth.html',{'id':lab.name})
     else:
         if request.POST.get("connect"):
             password_from_db = get_object_or_404(AllLabs,id_number = id_number)
@@ -124,7 +141,23 @@ def labSite(request, id_number):
                 return redirect('labsite',  id_number = id_number)
         if request.POST.get(lab_devices[0].name):
             return redirect('device', id_number = id_number, name = lab_devices[0].name)
-            
+        if request.POST.get("measures_list"):
+            return redirect('measures', id_number = id_number)
+
+def measures(request, id_number):
+    if request.method == "GET":
+        lab = get_object_or_404(AllLabs, id_number = id_number)
+        measures = Measures.objects.filter(lab = lab.id)
+        return render(request,'measureit/measures/measures.html',{'data':measures})   
+    else:
+        lab = get_object_or_404(AllLabs, id_number = id_number)
+        device = get_object_or_404(Device, lab=lab.id)
+        if request.POST.get('details'):
+            _name = request.POST['details']
+            _measure = get_object_or_404(Measures, id = _name)
+            return redirect('measure_result', id_number = id_number, name = device.name, command = _measure.command)
+        else:
+            return render(request,'measureit/measures/measures.html')         
         
     
 def addDevice(request, id_number):
@@ -218,3 +251,4 @@ def measureResult(request, id_number, name, command):
             return render(request,'measureit/measures/measure_result.html',{'data':cutted})
         else:
             return render(request,'measureit/measures/measure_result.html',{'data':cutted})
+
