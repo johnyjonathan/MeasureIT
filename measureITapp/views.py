@@ -1,3 +1,4 @@
+from os import path
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import request
 from django.shortcuts import redirect, render, get_object_or_404
@@ -7,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from .models import AllLabs, Device, UserLabs, Measures
-from .functions import generate_id, addCreatedLab, pingServer, ServerConnector, FileManager, modyfiCommand
+from .functions import generate_id, addCreatedLab, pingServer, ServerConnector, FileManager, modyfiCommand, reverseModyficommand
 from django.contrib import messages
 import paramiko
 
@@ -139,8 +140,13 @@ def labSite(request, id_number):
             else:
                 messages.info(request, 'Server is offline')
                 return redirect('labsite',  id_number = id_number)
-        if request.POST.get(lab_devices[0].name):
-            return redirect('device', id_number = id_number, name = lab_devices[0].name)
+        if request.POST.get("use"):
+            value = request.POST['use']
+            device = get_object_or_404(Device, id = value)
+            return redirect('device', id_number = id_number, name = device.name)
+        else:
+            messages.info(request, lab_devices[0].name)
+            return redirect('labsite',  id_number = id_number)
         if request.POST.get("measures_list"):
             return redirect('measures', id_number = id_number)
 
@@ -155,10 +161,17 @@ def measures(request, id_number):
         if request.POST.get('details'):
             _name = request.POST['details']
             _measure = get_object_or_404(Measures, id = _name)
-            return redirect('measure_result', id_number = id_number, name = device.name, command = _measure.command)
+            return redirect('measure_detail', id_number = id_number, id = _measure.id)
         else:
             return render(request,'measureit/measures/measures.html')         
         
+def measureDetail(request, id_number, id):
+    if request.method == "GET":
+        measure = get_object_or_404(Measures, id = id)
+        return render(request,'measureit/measures/measure_detail.html',{'measure':measure})
+    else:
+        if request.POST.get('back'):
+           return redirect('measures', id_number = id_number)
     
 def addDevice(request, id_number):
     if request.method == "GET":
@@ -193,17 +206,16 @@ def device(request, id_number, name):
 
         device_ip = device_info[0].ip_adress
         device_name = device_info[0].name
-        device_pass = "multimetr"
+        device_pass = device_info[0].password
 
-        # ssh = paramiko.SSHClient()
-        # ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        # ssh.connect(server_ip, 22, server_name, server_pass)
+
         connection = ServerConnector(server_ip, device_ip, server_pass, device_pass, server_name, device_name)
         connection.establishConnection()
 
         if request.POST.get("send_command"):
-            file = FileManager('telnet_output.txt')
-            file.delete()
+            if path.exists('telnet_output.txt'):
+                file = FileManager('telnet_output.txt')
+                file.delete()
             try:
                 command = request.POST['command']
                 connection.commandToTelnet(command)
@@ -232,13 +244,14 @@ def measureResult(request, id_number, name, command):
         elif request.POST.get('exit'):
             return redirect('labsite',  id_number = id_number)
         elif request.POST.get('save'):
+            measure_name = request.POST['result_name']
             lab_data = get_object_or_404(AllLabs, id_number = id_number)
             device_data = get_object_or_404(Device, lab = lab_data.id)
             try:
                 form = MeasureForm()
                 new_measure = form.save(commit=False)
                 
-                new_measure.name = "custom"
+                new_measure.name = measure_name
                 new_measure.device = device_data
                 new_measure.command = command
                 new_measure.output = cutted

@@ -22,20 +22,25 @@
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/custom.css' %}">
 
 <section class="create">
-
+<div class="lab_cont row justify-content-start">
+<div class="lab_info">
 <form method="POST">
-    {% csrf_token %}
-    <div class="form_cont">
-    <div class="form-grup">
-        <label for="name"> Join by IP adress </label>
-        <input type="text" name="join_ip" class="form-control">
-    </div> 
-    </div>
-    <input type="submit" name="join"  value="Join" class="btn btn-outline-light">
+{% csrf_token %}
 
-    <span> {{error}} </span>
+
+<span> <b>Name: </b> {{measure.name}} </span><br>
+<span> <b>Device: </b>{{measure.device}} </span><br>
+<span> <b>Date: </b>{{measure.date}} </span><br>
+<span> <b>Command: </b>{{measure.command}} </span><br>
+<span> <b>Laboratory: </b>{{measure.lab}} </span><br>
+<span> <b>Output: </b><br>{{measure.output}} </span>
+<br>
+<br>
+<input type="submit" name="back"  value="Back" class="btn btn-outline-light">
+</div>
+</div>
+
 </form>
-
 </section>
 
 {% endblock %}

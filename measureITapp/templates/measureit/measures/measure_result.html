@@ -29,6 +29,12 @@
 <div class="control-buttons">
 <form method="POST">
 {% csrf_token %}
+<div class="form_cont">
+    <div class="form-grup">
+        <label for="name"> Measure name </label>
+        <input type="text" name="result_name" class="form-control">
+    </div> 
+</div>
 <input type="submit" name="return"  value="Return" class="btn btn-outline-success">
 <input type="submit" name="exit"  value="Exit" class="btn btn-outline-success">
 <input type="submit" name="save"  value="Save" class="btn btn-outline-success">

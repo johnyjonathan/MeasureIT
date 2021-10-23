@@ -1,12 +1,10 @@
 .buttonlogout {
     display: block;
-
-    background: #0a9394!important;
+    
   }
 
   .button-hov {
     display: block;
-    background: #0a9394!important; 
   }
 
    .button-hov:hover{
@@ -129,6 +127,12 @@ color:white;
 
 .devices{
   margin-top: 4%;
+}
+
+.devices li{
+  margin-top: 2%;
+  margin-bottom: 2%;
+  text-decoration: none;
 }
 
 .fakeButtons {

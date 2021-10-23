@@ -31,6 +31,10 @@
         <label for="name"> Name of device </label>
         <input type="text" name="name" class="form-control">
     </div> 
+      <div class="form-grup">
+        <label for="password"> Password </label>
+        <input type="password" name="password" class="form-control">
+    </div> 
     <div class="form-grup">
         <label for="ip_adress"> IP adress </label>
         <input type="text" minlength="7" name="ip_adress" class="form-control" maxlength="15" size="15" pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$">
@@ -47,18 +51,18 @@
         <label for="units"> Units </label>
         <input type="text" name="units" class="form-control text-area">
     </div> 
-        <div class="form-grup">
+        <div class="form-grup visually-hidden">
         <label for="connection_type"> Connection type </label>
-        <select type="text" name="connection_type" class="form-control text-area">
-        <option value="usb"> USB </option>
+        <select type="hidden" name="connection_type" class="form-control text-area">
         <option value="rj-45"> RJ-45 </option>
-        <option value="com"> COM </option>
+        
         </select>
     </div> 
         <span> {{ error }} </span>
     </div>
-
-<button type="submit">Add</button>
+<br>
+<button type="submit" class="btn btn-outline-light">Add</button>
+<br>
 </form>
 </section>
 {% endblock %}

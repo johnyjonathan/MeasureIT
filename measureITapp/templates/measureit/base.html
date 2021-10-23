@@ -28,8 +28,12 @@
       {% endfor %}
   {% endif %}
 <div id="main">
-<div class="collapse-navbar">
-<div class="collapse" id="navbarToggleExternalContent">
+
+<nav class="navbar navbar-dark ">
+
+  <div class="container-fluid">
+  <div class="collapse-navbar">
+<div class="">
   <div class="p-4">
     <ul class="nav">
   <li class="nav-item">
@@ -45,11 +49,6 @@
   </div>
 </div>
 </div>
-<nav class="navbar navbar-dark ">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"> </span>
-    </button>
     <ul class="nav">
     {% if user.is_authenticated %}
   <li class="nav-item">
@@ -75,8 +74,9 @@
 
 {% endblock %}
 
+</div>
+<footer class="text-center p-3">
 
-<footer>
             <div>
                 <p>Michał Taszycki, MeasureIT&nbsp;<strong>© 2021</strong><br></p>
             </div>

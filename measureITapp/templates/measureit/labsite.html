@@ -37,9 +37,8 @@
 <br>
 <form method="POST">
 {% csrf_token %}
-<input type="submit" name="check_status"  value="Server status" class="btn btn-outline-success">
-<input type="submit" name="add_m_measuer"  value="Add manual measuer" class="btn btn-outline-success">
-<input type="submit" name="measures_list"  value="Measures" class="btn btn-outline-success">
+<input type="submit" name="check_status"  value="Server status" class="btn btn-outline-light">
+<input type="submit" name="measures_list"  value="Measures" class="btn btn-outline-light">
 </form>
 </div>
 {% endfor %}
@@ -50,7 +49,7 @@
 <h4> List of devices </h4>
 <ul>
 {% for device in lab_devices %}
-<li> {{device.name}} <input type="submit" name="{{device.name}}"  value="Use" class="btn btn-outline-success"> </li>
+<li> {{device.name}} <button type="submit" name="use"  value="{{device.id}}" class="btn btn-outline-light"> Use </button></li>
 {% endfor %}
 </ul>
 </form>
@@ -60,7 +59,7 @@
 <form method="POST">
 {% csrf_token %}
 
-<input type="submit" name="add_device"  value="Add device" class="btn btn-outline-success">
+<input type="submit" name="add_device"  value="Add device" class="btn btn-outline-light">
 
 </form>
 {% else %}

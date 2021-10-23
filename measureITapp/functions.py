@@ -29,6 +29,12 @@ def modyfiCommand(command):
     else:
         return command
 
+def reverseModyficommand(command):
+    if "+" in command:
+        modyfi = command.replace("+"," ")
+        return modyfi
+    else:
+        return command
 class ServerConnector:
     def __init__(self, ip_server, ip_device, server_password, device_password, server_name, device_name):
         self.server_ip = ip_server
