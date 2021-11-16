@@ -54,9 +54,9 @@ class ServerConnector:
     def useCommand(self, command):
         self.ssh.exec_command(command)
 
-    def commandToTelnet(self, command):
-        func_ssh_str = """telnetConnect('{0}','{1}','{2}','{3}')"""
-        func_ssh = func_ssh_str.format(self.device_ip, self.device_name, self.device_pass, command)
+    def commandToTelnet(self, command, port):
+        func_ssh_str = """telnetConnect('{0}','{1}','{2}','{3}','{4}')"""
+        func_ssh = func_ssh_str.format(self.device_ip, self.device_name, self.device_pass, command, port)
         command_value_str = """python3 -c "import telnet; telnet.{0}" """
         command_value = command_value_str.format(func_ssh)
         self.ssh.exec_command(command_value)

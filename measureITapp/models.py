@@ -24,11 +24,8 @@ class Device(models.Model):
     name = models.CharField(max_length=100)
     password = models.CharField(max_length=100, default="12345")
     ip_adress = models.CharField(max_length=16)
-    mac_adress = models.CharField(max_length=100)
     add_date = models.DateTimeField(auto_now_add=True)
-    measure_type = models.CharField(max_length=100)
-    units = models.CharField(max_length=10)
-    connection_type = models.CharField(max_length=20)
+    port = models.IntegerField(default="23")
     lab = models.ForeignKey(AllLabs,on_delete=models.CASCADE)
 
     def __str__(self):

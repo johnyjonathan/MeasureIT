@@ -207,6 +207,7 @@ def device(request, id_number, name):
         device_ip = device_info[0].ip_adress
         device_name = device_info[0].name
         device_pass = device_info[0].password
+        device_port = device_info[0].port
 
 
         connection = ServerConnector(server_ip, device_ip, server_pass, device_pass, server_name, device_name)
@@ -218,7 +219,7 @@ def device(request, id_number, name):
                 file.delete()
             try:
                 command = request.POST['command']
-                connection.commandToTelnet(command)
+                connection.commandToTelnet(command, device_port)
                 if connection.isFileExist() == 1:
                     return redirect('measure_result', id_number = id_number, name = name, command = modyfiCommand(command))
                 else:

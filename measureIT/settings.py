@@ -26,7 +26,7 @@ SECRET_KEY = 'w8pi4o-6v-26u**ky&lmq2cwb*9j3x6=a^61)@74&rw&1(icad'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['measureit.pythonanywhere.com']
+ALLOWED_HOSTS = ['measureit.pythonanywhere.com','localhost']
 
 
 # Application definition

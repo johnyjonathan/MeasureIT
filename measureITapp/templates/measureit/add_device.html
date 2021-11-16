@@ -39,25 +39,12 @@
         <label for="ip_adress"> IP adress </label>
         <input type="text" minlength="7" name="ip_adress" class="form-control" maxlength="15" size="15" pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$">
     </div>  
+
     <div class="form-grup">
-        <label for="mac_adress"> MAC adress </label>
-        <input type="text" name="mac_adress" class="form-control">
+        <label for="measure_type"> Port number </label>
+        <input type="text" name="port" class="form-control text-area" placeholder="Default port 23 - telnet" pattern="[0-9]+">
     </div> 
-    <div class="form-grup">
-        <label for="measure_type"> Measure type </label>
-        <input type="text" name="measure_type" class="form-control text-area">
-    </div> 
-        <div class="form-grup">
-        <label for="units"> Units </label>
-        <input type="text" name="units" class="form-control text-area">
-    </div> 
-        <div class="form-grup visually-hidden">
-        <label for="connection_type"> Connection type </label>
-        <select type="hidden" name="connection_type" class="form-control text-area">
-        <option value="rj-45"> RJ-45 </option>
-        
-        </select>
-    </div> 
+
         <span> {{ error }} </span>
     </div>
 <br>
