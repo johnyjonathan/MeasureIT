@@ -43,3 +43,11 @@ class Measures(models.Model):
     
     def __str__(self):
         return self.name
+    
+class Commands(models.Model):
+    name = models.CharField(max_length=100)
+    command = models.CharField(max_length=200)
+    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name

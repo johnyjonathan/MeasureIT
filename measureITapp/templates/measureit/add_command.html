@@ -2,7 +2,6 @@
 
 {% block content %}
 {% load static %}
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&display=swap" rel="stylesheet">
@@ -22,54 +21,27 @@
     <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/custom.css' %}">
 
-<div class="lab_cont row justify-content-start">
-<div class="lab_info col-5">
-{{error}}
 
-{% for info in lab_info %}
-<span> <b>Name: </b> {{info.name}} </span><br>
-<span> <b>Description: </b>{{info.description}} </span><br>
-<span> <b>Creation date: </b>{{info.created}} </span><br>
-<span> <b>Created by: </b>{{info.owner}} </span>
-
-
-<div class="measuer_buttons_cont">
+<section class="create">
+<h3> imo works </h3>
+<form method="POST">
+    {% csrf_token %}
+<div class="form_cont">
+    <div class="form-grup">
+        <label for="name"> Name </label>
+        <input type="text" name="name" class="form-control">
+    </div> 
+      <div class="form-grup">
+        <label for="command"> Command </label>
+        <input type="text" name="command" class="form-control">
+    </div> 
+    <div class="form-grup">
+        <label for="device"> Device </label>
+        <input type = "text" name="device" class="form-control" >
+    </div>  
+    
+<button type="submit" class="btn btn-outline-light">Add</button>
 <br>
-<form method="POST">
-{% csrf_token %}
-<input type="submit" name="check_status"  value="Server status" class="btn btn-outline-light">
-<input type="submit" name="measures_list"  value="Measures" class="btn btn-outline-light">
-<input type="submit" name="commands" value="Add command" class="btn btn-outline-light">
 </form>
-</div>
-{% endfor %}
-</div>
-<div class="col-6 devices">
-<form method="POST">
-{% csrf_token %}
-<h4> List of devices </h4>
-<ul>
-{% for device in lab_devices %}
-<li> {{device.name}} <button type="submit" name="use"  value="{{device.id}}" class="btn btn-outline-light"> Use </button></li>
-{% endfor %}
-</ul>
-</form>
-
-{% if request.user.profile == info.owner %}
-
-<form method="POST">
-{% csrf_token %}
-
-<input type="submit" name="add_device"  value="Add device" class="btn btn-outline-light">
-
-</form>
-{% else %}
-<form method="POST">
-
-<button> devices </button>
-
-</form>
-{% endif %}
-</div>
-</div>
+</section>
 {% endblock %}

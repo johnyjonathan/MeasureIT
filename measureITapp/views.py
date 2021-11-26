@@ -1,13 +1,13 @@
-from os import path
+from os import name, path
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import request
 from django.shortcuts import redirect, render, get_object_or_404
-from .forms import UserCreationForm, CreateLabForm, AddLabForm, AddDeviceForm, MeasureForm
+from .forms import UserCreationForm, CreateLabForm, AddLabForm, AddDeviceForm, MeasureForm, AddCommandForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
-from .models import AllLabs, Device, UserLabs, Measures
+from .models import AllLabs, Device, UserLabs, Measures, Commands
 from .functions import generate_id, addCreatedLab, pingServer, ServerConnector, FileManager, modyfiCommand, reverseModyficommand
 from django.contrib import messages
 import paramiko
@@ -130,8 +130,8 @@ def labSite(request, id_number):
         lab_devices = Device.objects.filter(lab = lab_info[0].id)
         if request.POST.get("add_device"):
            return redirect('adddevice', id_number = id_number)
-        if request.POST.get("add_m_measuer"):
-            return redirect('add_m_measure', id_number = id_number)
+        if request.POST.get("commands"):
+            return redirect('addCommand', id_number = id_number)
         if request.POST.get("check_status"):
             lab_info = get_object_or_404(AllLabs,id_number = id_number)
             if pingServer(lab_info.ip_adress) == True:
@@ -149,7 +149,36 @@ def labSite(request, id_number):
             return redirect('labsite',  id_number = id_number)
         if request.POST.get("measures_list"):
             return redirect('measures', id_number = id_number)
-
+        
+def addCommand(request, id_number):
+    if request.method == "GET":
+        lab_info = AllLabs.objects.filter(id_number = id_number)
+        lab_devices = Device.objects.filter(lab = lab_info[0].id)
+        return render(request,'measureit/add_command.html', {'lab_devices': lab_devices, 'form':AddCommandForm()})
+    else:
+        lab_info = AllLabs.objects.filter(id_number = id_number)
+        lab_devices = Device.objects.filter(lab = lab_info[0].id)
+        
+        device_id = get_object_or_404(Device, id = request.POST['device'])
+        form = AddCommandForm()
+        
+            
+        newcommand = form.save(commit=False)
+        newcommand.name = request.POST['name']
+            
+        
+        newcommand.command = request.POST['command']
+        
+        newcommand.device_id = device_id.id
+        
+        newcommand.save()
+        try:
+            return render(request,'measureit/add_command.html',{ 'error': 'Oki ;)', 'lab_devices': lab_devices,  'form':AddCommandForm()})
+        except:
+            return render(request,'measureit/add_command.html',{ 'error': 'Something gone wron33 :(', 'lab_devices': lab_devices,  'form':AddCommandForm()})
+     
+        
+    
 def measures(request, id_number):
     if request.method == "GET":
         lab = get_object_or_404(AllLabs, id_number = id_number)
@@ -234,12 +263,12 @@ def measureResult(request, id_number, name, command):
     if request.method == "GET":
         file_data = FileManager('telnet_output.txt')
         measure_data = file_data.read()
-        cutted = file_data.cutText(name)
-        return render(request,'measureit/measures/measure_result.html',{'data':cutted})
+        #cutted = file_data.cutText(name)
+        return render(request,'measureit/measures/measure_result.html',{'data':measure_data})
     else:
         file_data = FileManager('telnet_output.txt')
         measure_data = file_data.read()
-        cutted = file_data.cutText(name)
+        #cutted = file_data.cutText(name)
         if request.POST.get('return'):
             return redirect('device', id_number = id_number, name = name)   
         elif request.POST.get('exit'):
@@ -255,14 +284,14 @@ def measureResult(request, id_number, name, command):
                 new_measure.name = measure_name
                 new_measure.device = device_data
                 new_measure.command = command
-                new_measure.output = cutted
+                new_measure.output = measure_data
                 new_measure.lab = lab_data
                 new_measure.save()
                 messages.info(request, "Saved!")
             except:
                 messages.info(request, "Can not save this measure")    
 
-            return render(request,'measureit/measures/measure_result.html',{'data':cutted})
+            return render(request,'measureit/measures/measure_result.html',{'data':measure_data})
         else:
-            return render(request,'measureit/measures/measure_result.html',{'data':cutted})
+            return render(request,'measureit/measures/measure_result.html',{'data':measure_data})
 
